@@ -139,6 +139,7 @@
 </style>
 </head>
 <body>
+  <canvas id="fxCanvas" aria-hidden="true"></canvas>
 <div class="wrap">
   <div class="topbar">
     <div class="brand">
@@ -356,11 +357,12 @@
   const fxCtx = fxCanvas ? fxCanvas.getContext('2d') : null;
   function resizeFx(){
     if(!fxCanvas) return;
-    fxCanvas.width = Math.floor(window.innerWidth * (window.devicePixelRatio||1));
-    fxCanvas.height = Math.floor(window.innerHeight * (window.devicePixelRatio||1));
+    const dpr = (window.devicePixelRatio||1);
+    fxCanvas.width = Math.floor(window.innerWidth * dpr);
+    fxCanvas.height = Math.floor(window.innerHeight * dpr);
     fxCanvas.style.width = window.innerWidth + 'px';
     fxCanvas.style.height = window.innerHeight + 'px';
-    if(fxCtx){ fxCtx.setTransform((window.devicePixelRatio||1),0,0,(window.devicePixelRatio||1),0,0); }
+    if(fxCtx) fxCtx.setTransform(dpr,0,0,dpr,0,0);
   }
   window.addEventListener('resize', resizeFx);
   resizeFx();
@@ -774,6 +776,5 @@
 })();
 
 </script>
-  <canvas id="fxCanvas" aria-hidden="true"></canvas>
 </body>
 </html>
